@@ -1,0 +1,16 @@
+{
+  "name": "DB Studio",
+  "description": "DB Studio Media — strategic production and brand development",
+  "repository": "https://github.com/AlexisGuanique/db-studio",
+  "keywords": ["nextjs", "typescript", "tailwindcss"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "value": "production"
+    }
+  }
+}
