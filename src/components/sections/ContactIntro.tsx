@@ -85,7 +85,7 @@ const contactItems = [
 
 export function ContactIntro() {
   return (
-    <section className="contact-intro bg-cream py-16 md:py-24">
+    <section id="contact-intro" className="contact-intro bg-cream py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
         <div className="contact-intro__layout">
           <Reveal direction="left">

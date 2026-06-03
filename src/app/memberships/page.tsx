@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { ContentStudio } from "@/components/sections/ContentStudio";
 
 export const metadata: Metadata = {
   title: "Memberships",
 };
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Memberships" },
+];
+
 export default function MembershipsPage() {
   return (
     <>
-      <PageHero
-        title="Memberships"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Memberships" },
-        ]}
-      />
+      <PageImageHero title="Memberships" breadcrumbs={breadcrumbs} />
       <ContentStudio />
     </>
   );

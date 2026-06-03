@@ -61,7 +61,7 @@ function PricingCard({
 export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
   return (
     <>
-      <section className="bg-cream py-20 md:py-28">
+      <section id="content-studio" className="bg-cream py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
           <div className="grid items-start gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-8 xl:gap-10">
             <Reveal direction="left">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <PageHero
+      <PageImageHero
         title="Privacy Policy"
         breadcrumbs={[
           { label: "Home", href: "/" },

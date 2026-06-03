@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { Button } from "@/components/ui/Button";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -24,7 +24,7 @@ const partnershipBenefits = [
 export default function PartnershipPage() {
   return (
     <>
-      <PageHero
+      <PageImageHero
         title="Partnership"
         breadcrumbs={[
           { label: "Home", href: "/" },

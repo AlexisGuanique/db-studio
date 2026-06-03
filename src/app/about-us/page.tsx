@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import {
   SharedBackdropPanel,
   SharedBackdropRoot,
@@ -12,18 +12,17 @@ export const metadata: Metadata = {
   title: "About Us",
 };
 
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "About Us" },
+];
+
 export default function AboutUsPage() {
   return (
     <>
-      <PageHero
-        title="About Us"
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About Us" },
-        ]}
-      />
+      <PageImageHero title="About Us" breadcrumbs={breadcrumbs} />
 
-      <SharedBackdropRoot>
+      <SharedBackdropRoot id="about-content">
         <SharedBackdropPanel variant="burgundy-tint" className="py-20 md:py-28">
           <CreativeDirection portrait="about" />
         </SharedBackdropPanel>

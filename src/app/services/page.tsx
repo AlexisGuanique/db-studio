@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   SharedBackdropPanel,
@@ -7,7 +8,6 @@ import {
 } from "@/components/layout/SharedBackdrop";
 import { ServicesAudience } from "@/components/sections/ServicesAudience";
 import { ServicesFaq } from "@/components/sections/ServicesFaq";
-import { ServicesHero } from "@/components/sections/ServicesHero";
 import { ServicesTimeline } from "@/components/sections/ServicesTimeline";
 import { ServicesWhatsIncluded } from "@/components/sections/ServicesWhatsIncluded";
 import {
@@ -31,7 +31,7 @@ const breadcrumbs = [
 export default function ServicesPage() {
   return (
     <>
-      <ServicesHero breadcrumbs={breadcrumbs} />
+      <PageImageHero title="Services" breadcrumbs={breadcrumbs} />
 
       <section className="bg-cream py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">

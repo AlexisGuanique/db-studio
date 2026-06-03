@@ -3,12 +3,14 @@ import type { ReactNode } from "react";
 export function SharedBackdropRoot({
   children,
   className = "",
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
-    <div className={`shared-backdrop-root relative ${className}`}>
+    <div id={id} className={`shared-backdrop-root relative ${className}`}>
       <div className="shared-backdrop-root__bg" aria-hidden />
       {children}
     </div>

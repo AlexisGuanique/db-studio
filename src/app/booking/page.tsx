@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function BookingPage() {
   return (
     <>
-      <PageHero
+      <PageImageHero
         title="Book a Strategy Call"
         breadcrumbs={[
           { label: "Home", href: "/" },
@@ -17,7 +17,7 @@ export default function BookingPage() {
         ]}
       />
 
-      <section className="bg-white py-16">
+      <section id="booking-form" className="bg-white py-16">
         <div className="mx-auto max-w-xl px-4 lg:px-8">
           <p className="text-text-secondary">
             Schedule a strategy call with DB Studio to explore how we can support

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/PageHero";
+import { PageImageHero } from "@/components/layout/PageImageHero";
 import { ContactBottom } from "@/components/sections/ContactBottom";
 import { ContactIntro } from "@/components/sections/ContactIntro";
 
@@ -15,7 +15,7 @@ const breadcrumbs = [
 export default function ContactUsPage() {
   return (
     <>
-      <PageHero title="Contact Us" breadcrumbs={breadcrumbs} />
+      <PageImageHero title="Contact Us" breadcrumbs={breadcrumbs} />
       <ContactIntro />
       <ContactBottom />
     </>
