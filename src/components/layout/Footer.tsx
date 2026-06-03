@@ -9,37 +9,45 @@ import { Button } from "@/components/ui/Button";
 
 export function Footer() {
   return (
-    <footer className="bg-burgundy text-white">
-      <div className="border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-16 text-center lg:px-8">
-          <h2 className="text-2xl font-semibold uppercase tracking-wide md:text-3xl">
-            WORK FASTER WITH US!
-          </h2>
-          <p className="mt-2 text-lg text-white/90">
-            Where Every Detail Becomes an Experience.
-          </p>
+    <footer className="bg-black text-white">
+      <div className="bg-white px-4 sm:px-6 lg:px-8">
+        <div className="footer-newsletter mx-auto max-w-7xl overflow-hidden rounded-t-3xl border-2 border-burgundy/35 border-b-0 bg-cream text-text-primary shadow-[0_-4px_24px_rgba(91,27,31,0.08)]">
+          <div className="flex flex-col gap-10 px-6 py-12 sm:px-8 md:py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-12 lg:py-16">
+            <div className="text-center lg:max-w-md lg:text-left">
+              <h2 className="text-xl font-semibold uppercase tracking-wide text-burgundy sm:text-2xl md:text-3xl">
+                WORK FASTER WITH US!
+              </h2>
+              <p className="mt-4 text-base text-text-secondary md:text-lg">
+                Where Every Detail Becomes an Experience.
+              </p>
+            </div>
 
-          <div className="mx-auto mt-10 max-w-md">
-            <h3 className="mb-4 text-lg font-medium uppercase">
-              Subscribe to our newsletter!
-            </h3>
-            <form className="flex flex-col gap-3 sm:flex-row" action="#" method="post">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                placeholder="Email"
-                className="flex-1 rounded-[5px] border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder:text-white/60 focus:border-white focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="rounded-[5px] bg-cream px-6 py-3 text-sm font-semibold uppercase tracking-wide text-burgundy transition hover:bg-white"
+            <div className="w-full lg:max-w-lg lg:shrink-0">
+              <h3 className="mb-4 text-center text-base font-semibold uppercase tracking-wide text-burgundy lg:text-left lg:text-lg">
+                Subscribe to our newsletter!
+              </h3>
+              <form
+                className="footer-newsletter__form flex"
+                action="#"
+                method="post"
               >
-                Subscribe
-              </button>
-            </form>
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="newsletter-email"
+                  type="email"
+                  placeholder="Email"
+                  className="min-w-0 flex-1 rounded-l-[10px] border-2 border-r-0 border-burgundy/25 bg-white px-4 py-3 text-text-primary placeholder:text-text-secondary/60 focus:border-burgundy focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 rounded-r-[10px] border-2 border-burgundy bg-burgundy px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-cream hover:text-burgundy sm:px-6"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

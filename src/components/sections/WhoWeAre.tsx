@@ -1,12 +1,12 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
 export function WhoWeAre() {
   return (
-    <section className="bg-cream py-16 md:py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
+    <section className="bg-cream py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:px-8 lg:grid-cols-2 lg:gap-16 lg:px-12">
         <Reveal direction="left">
           <div>
             <SectionTitle>Who We Are</SectionTitle>
@@ -26,13 +26,24 @@ export function WhoWeAre() {
               <p>Every project is built with direction and execution.</p>
             </div>
             <div className="mt-8">
-              <Button href="/booking">Book a strategy call</Button>
+              <Button href="/booking" interactive>
+                Book a strategy call
+              </Button>
             </div>
           </div>
         </Reveal>
 
         <Reveal direction="right" delay={120}>
-          <ImagePlaceholder label="DB Studio Team" aspectRatio="landscape" />
+          <div className="section-image">
+            <Image
+              src="/images/who-we-are-studio.jpg"
+              alt="DB Studio interview space with professional microphones and seating"
+              width={1024}
+              height={677}
+              className="section-image__photo"
+              sizes="(max-width: 1024px) 100vw, 560px"
+            />
+          </div>
         </Reveal>
       </div>
     </section>

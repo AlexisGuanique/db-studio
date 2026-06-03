@@ -6,7 +6,6 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { CheckList } from "@/components/ui/CheckList";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 
 function PricingCard({
@@ -28,40 +27,28 @@ function PricingCard({
 }) {
   return (
     <div
-      className={`flex h-full flex-col rounded-lg border-2 p-8 ${
-        featured
-          ? "border-burgundy bg-burgundy text-white"
-          : "border-burgundy/20 bg-white"
+      className={`content-studio-card flex h-full flex-col p-8 text-center md:p-9 ${
+        featured ? "content-studio-card--featured" : ""
       }`}
     >
-      <h3
-        className={`text-xl font-semibold uppercase ${featured ? "text-white" : "text-burgundy"}`}
-      >
+      <h3 className="content-studio-card__title text-xl font-semibold uppercase text-burgundy">
         {title}
       </h3>
-      <p
-        className={`mt-1 text-sm uppercase tracking-wide ${featured ? "text-white/80" : "text-text-secondary"}`}
-      >
+      <p className="mt-1 text-sm font-medium uppercase tracking-wide text-text-secondary">
         {subtitle}
       </p>
       <div className="my-6">
-        <span
-          className={`text-4xl font-bold ${featured ? "text-white" : "text-burgundy"}`}
-        >
-          $ {price}
-        </span>
-        <span className={featured ? "text-white/80" : "text-text-secondary"}>
-          {" "}
-          /month
-        </span>
+        <span className="text-4xl font-bold text-burgundy">${price}</span>
+        <span className="text-text-secondary"> /month</span>
       </div>
-      <div className="flex-1">
-        <CheckList items={features} light={featured} />
+      <div className="mt-3 flex flex-1 justify-center">
+        <CheckList items={features} />
       </div>
       <div className="mt-8">
         <Button
           href={ctaHref}
-          variant={featured ? "outline-light" : "primary"}
+          variant="primary"
+          interactive
           className="w-full justify-center"
         >
           {ctaLabel}
@@ -74,35 +61,32 @@ function PricingCard({
 export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
   return (
     <>
-      <section className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <Reveal direction="left">
-            <SectionTitle>In-House Content Studio</SectionTitle>
-          </Reveal>
-
-          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
-            <Reveal direction="left" delay={100}>
-              <div className="space-y-4 text-text-secondary">
-                <p>
-                  DB Studio operates a professional recording and content
-                  production studio for creators, entrepreneurs, and brands
-                  seeking structured production.
-                </p>
-                <p>This is not studio rental.</p>
-                <p className="font-medium text-text-primary">
-                  It is guided content creation inside a strategic ecosystem.
-                </p>
-                <Button href="/memberships">Explore More</Button>
+      <section className="bg-cream py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+          <div className="grid items-start gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-8 xl:gap-10">
+            <Reveal direction="left">
+              <div className="content-studio-intro md:col-span-2 lg:col-span-1 lg:pr-4 xl:pr-6">
+                <SectionTitle>In-House Content Studio</SectionTitle>
+                <div className="mt-6 space-y-4 text-text-secondary">
+                  <p>
+                    DB Studio operates a professional recording and content
+                    production studio for creators, entrepreneurs, and brands
+                    seeking structured production.
+                  </p>
+                  <p>This is not studio rental.</p>
+                  <p className="font-medium text-text-primary">
+                    It is guided content creation inside a strategic ecosystem.
+                  </p>
+                </div>
+                <div className="mt-8">
+                  <Button href="/memberships" variant="primary" interactive>
+                    Explore More
+                  </Button>
+                </div>
               </div>
             </Reveal>
 
-            <Reveal direction="right" delay={180}>
-              <ImagePlaceholder label="Content Studio" aspectRatio="video" />
-            </Reveal>
-          </div>
-
-          <div className="mt-16 grid gap-8 md:grid-cols-2">
-            <Reveal direction="left" delay={100}>
+            <Reveal direction="left" delay={120}>
               <PricingCard
                 title="Content Creator"
                 subtitle="Membership"
@@ -112,13 +96,14 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                 ctaHref="/memberships"
               />
             </Reveal>
-            <Reveal direction="right" delay={180}>
+
+            <Reveal direction="right" delay={200}>
               <PricingCard
                 title="Premium Creator"
                 subtitle="Membership"
                 price="499.99"
                 features={premiumCreatorFeatures}
-                ctaLabel="Apply for Premium Membership"
+                ctaLabel="Apply for Studio Membership"
                 ctaHref="/memberships"
                 featured
               />
@@ -128,11 +113,11 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
       </section>
 
       {showTalent && (
-        <section className="bg-burgundy py-16 text-white md:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <section className="bg-white py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
             <Reveal direction="left">
-              <SectionTitle light>Talent & Brand Connections</SectionTitle>
-              <p className="mt-4 max-w-2xl text-white/90">
+              <SectionTitle>Talent & Brand Connections</SectionTitle>
+              <p className="mt-4 max-w-2xl text-text-secondary">
                 DB Studio connects brands with:
               </p>
             </Reveal>
@@ -144,8 +129,8 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                   direction={index % 2 === 0 ? "left" : "right"}
                   delay={index * 80}
                 >
-                  <div className="rounded-lg border border-white/20 bg-white/5 px-4 py-6 text-center">
-                    <h3 className="text-sm font-semibold uppercase tracking-wide">
+                  <div className="talent-card talent-card--mirror rounded-lg border-2 border-burgundy bg-burgundy px-4 py-6 text-center">
+                    <h3 className="talent-card__title text-sm font-semibold uppercase tracking-wide text-white">
                       {item}
                     </h3>
                   </div>
@@ -154,15 +139,15 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
             </div>
 
             <Reveal direction="up" delay={120}>
-              <p className="mt-8 max-w-2xl text-white/90">
+              <p className="mt-8 max-w-2xl text-text-secondary">
                 All connections are aligned with positioning goals not random
                 exposure.
               </p>
-              <p className="mt-2 font-medium">
+              <p className="mt-2 font-medium text-text-primary">
                 We create structured collaboration opportunities.
               </p>
               <div className="mt-8">
-                <Button href="/services" variant="outline-light">
+                <Button href="/services" variant="primary" interactive>
                   Apply for Brand Management
                 </Button>
               </div>

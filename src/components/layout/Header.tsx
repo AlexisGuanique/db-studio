@@ -10,12 +10,9 @@ function HeaderCta({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/booking"
-      className={`header-cta inline-flex items-center justify-center rounded-[5px] border-2 border-burgundy bg-cream px-5 py-2.5 text-xs font-medium uppercase tracking-wide text-text-primary hover:border-cream hover:bg-burgundy hover:text-white xl:px-6 xl:py-3 xl:text-sm ${className}`}
+      className={`header-cta inline-flex min-h-[44px] items-center justify-center rounded-[10px] border-2 border-burgundy bg-cream px-6 py-3 text-center text-xs font-medium uppercase leading-snug tracking-wide text-text-primary hover:border-cream hover:bg-burgundy hover:text-white xl:min-h-[48px] xl:px-7 xl:py-3.5 xl:text-sm ${className}`}
     >
-      <span className="header-cta__label">
-        Book A Strategy Call
-
-      </span>
+      <span className="header-cta__label">Book A Strategy Call</span>
     </Link>
   );
 }

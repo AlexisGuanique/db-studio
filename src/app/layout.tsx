@@ -25,6 +25,10 @@ export const metadata: Metadata = {
   },
   description:
     "DB Studio is a strategic production and brand development company integrating positioning, audiovisual execution, and talent connections under one structured ecosystem.",
+  icons: {
+    icon: "/logo-db-studio.png",
+    apple: "/logo-db-studio.png",
+  },
 };
 
 export default function RootLayout({
