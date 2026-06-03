@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Open_Sans } from "next/font/google";
-import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { Header } from "@/components/layout/Header";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -32,8 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${openSans.variable}`}>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${openSans.variable}`}
+    >
       <body className="flex min-h-screen flex-col antialiased">
+        <ScrollToTop />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

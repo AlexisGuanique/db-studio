@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   footerHelpLinks,
@@ -45,6 +46,15 @@ export function Footer() {
 
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
+          <Link href="/" className="mb-6 inline-block">
+            <Image
+              src="/logo-db-studio-footer.png"
+              alt="DB Studio"
+              width={255}
+              height={250}
+              className="h-20 w-auto"
+            />
+          </Link>
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">
             Quick Links
           </h3>
