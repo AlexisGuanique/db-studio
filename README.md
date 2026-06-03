@@ -40,6 +40,17 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+## Despliegue en Heroku
+
+La app incluye `Procfile`, `app.json` y `engines` en `package.json` para Heroku.
+
+```bash
+heroku git:remote -a db-studio
+git push heroku main
+```
+
+URL en producción: https://db-studio-1be713f85dd0.herokuapp.com/
+
 ## Build
 
 ```bash
