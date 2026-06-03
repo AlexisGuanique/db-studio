@@ -7,13 +7,13 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 const portraitPresets = {
   home: {
     src: "/images/creative-direction.jpg",
-    alt: "Deborah Bolívar, Creative Director at DB Studio",
+    alt: "DB Studio Media creative direction and brand strategy team at work",
     width: 682,
     height: 1024,
   },
   about: {
     src: "/images/creative-direction-about.jpg",
-    alt: "Deborah Bolívar with laptop and phone in a professional outdoor setting",
+    alt: "DB Studio Media team member in a professional brand development setting",
     width: 682,
     height: 1024,
   },
@@ -46,34 +46,26 @@ export function CreativeDirection({
           <SectionTitle light>Creative Direction</SectionTitle>
           <div className="mt-6 space-y-4 text-white/90">
             <p>
-              DB Studio is led by Creative Director Deborah Bolívar, a brand
-              strategist and visual communication specialist with over five years
-              of experience in digital positioning, brand perception, and
-              high-level communication strategy.
+              At DB Studio Media, creative direction is agency-led — integrating brand
+              strategy, visual communication, and high-level production standards across
+              every client engagement.
             </p>
             <p>
-              Her professional background spans Venezuela, Colombia, and the
-              United States, including participation in Bogotá Fashion Week and
-              working with major brands and large-scale productions. This
-              experience strengthened her expertise in visual authority, brand
-              execution, audience psychology, and professional standards.
+              Our methodology draws on experience across Venezuela, Colombia, and the
+              United States, including fashion productions, international brand campaigns,
+              and large-scale audiovisual projects. This cross-market expertise strengthens
+              our approach to visual authority, brand execution, and audience psychology.
             </p>
             <p>
-              Recognized as Miss Orlando 2024, she brings discipline, presence,
-              and strategic representation into every project — not as a
-              spotlight, but as a standard of excellence and leadership.
-            </p>
-            <p>
-              Under her direction, DB Studio operates with a collaborative
-              team-based structure, integrating brand strategy, audiovisual
-              production, content systems, and structured positioning frameworks
-              to help entrepreneurs and companies build credible, scalable, and
-              professionally positioned brands.
+              DB Studio operates with a collaborative team-based structure, integrating
+              brand strategy, audiovisual production, content systems, and structured
+              positioning frameworks to help entrepreneurs and companies build credible,
+              scalable, and professionally positioned brands.
             </p>
           </div>
 
           <h3 className="mt-8 text-lg font-semibold uppercase tracking-wide text-cream">
-            The studio&apos;s approach is built on:
+            Our methodology is built on:
           </h3>
           <div className="mt-4">
             <CheckList items={studioApproach} columns={2} light />

@@ -13,7 +13,7 @@ export function ContactBottom() {
             <h2 className="contact-cta__title">Ready to Build With Structure?</h2>
             <div className="contact-cta__actions">
               <Link href="/booking" className="contact-cta__btn contact-cta__btn--ghost">
-                Book a Strategy Call
+                Book a Strategic Call
               </Link>
               <Link
                 href="/memberships"

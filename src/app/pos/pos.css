@@ -1,0 +1,11 @@
+.pos-page {
+  min-height: calc(100vh - 12rem);
+}
+
+.pos-terminal__status {
+  box-shadow: 0 8px 24px rgba(91, 27, 31, 0.06);
+}
+
+.pos-auth {
+  box-shadow: 0 12px 32px rgba(91, 27, 31, 0.1);
+}

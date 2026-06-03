@@ -3,10 +3,14 @@ import {
   premiumCreatorFeatures,
   talentConnections,
 } from "@/lib/site";
+import { getServiceLevel } from "@/lib/serviceLevels";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { CheckList } from "@/components/ui/CheckList";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+
+const level1 = getServiceLevel("content-creator")!;
+const level2 = getServiceLevel("premium-creator")!;
 
 function PricingCard({
   title,
@@ -15,6 +19,7 @@ function PricingCard({
   features,
   ctaLabel,
   ctaHref,
+  disclosure,
   featured = false,
 }: {
   title: string;
@@ -23,6 +28,7 @@ function PricingCard({
   features: readonly string[];
   ctaLabel: string;
   ctaHref: string;
+  disclosure: string;
   featured?: boolean;
 }) {
   return (
@@ -38,21 +44,19 @@ function PricingCard({
         {subtitle}
       </p>
       <div className="my-6">
-        <span className="text-4xl font-bold text-burgundy">${price}</span>
+        <span className="text-4xl font-bold text-burgundy">{price}</span>
         <span className="text-text-secondary"> /month</span>
       </div>
       <div className="mt-3 flex flex-1 justify-center">
         <CheckList items={features} />
       </div>
       <div className="mt-8">
-        <Button
-          href={ctaHref}
-          variant="primary"
-          interactive
-          className="w-full justify-center"
-        >
+        <Button href={ctaHref} variant="primary" interactive className="w-full justify-center">
           {ctaLabel}
         </Button>
+        <p className="service-level-card__disclosure mt-3 text-xs leading-relaxed text-text-secondary/80">
+          {disclosure}
+        </p>
       </div>
     </div>
   );
@@ -69,9 +73,8 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                 <SectionTitle>In-House Content Studio</SectionTitle>
                 <div className="mt-6 space-y-4 text-text-secondary">
                   <p>
-                    DB Studio operates a professional recording and content
-                    production studio for creators, entrepreneurs, and brands
-                    seeking structured production.
+                    DB Studio operates a professional recording and content production studio
+                    for creators, entrepreneurs, and brands seeking structured production.
                   </p>
                   <p>This is not studio rental.</p>
                   <p className="font-medium text-text-primary">
@@ -79,8 +82,8 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                   </p>
                 </div>
                 <div className="mt-8">
-                  <Button href="/memberships" variant="primary" interactive>
-                    Explore More
+                  <Button href="/services#studio-memberships" variant="primary" interactive>
+                    View all pricing
                   </Button>
                 </div>
               </div>
@@ -89,22 +92,24 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
             <Reveal direction="left" delay={120}>
               <PricingCard
                 title="Content Creator"
-                subtitle="Membership"
-                price="249.99"
+                subtitle="Membership — Level 1"
+                price="$249.99"
                 features={contentCreatorFeatures}
-                ctaLabel="Apply for Studio Membership"
-                ctaHref="/memberships"
+                ctaLabel={level1.ctaLabel}
+                ctaHref={`/checkout/${level1.slug}`}
+                disclosure={level1.disclosure}
               />
             </Reveal>
 
             <Reveal direction="right" delay={200}>
               <PricingCard
                 title="Premium Creator"
-                subtitle="Membership"
-                price="499.99"
+                subtitle="Membership — Level 2"
+                price="$499.99"
                 features={premiumCreatorFeatures}
-                ctaLabel="Apply for Studio Membership"
-                ctaHref="/memberships"
+                ctaLabel={level2.ctaLabel}
+                ctaHref={`/checkout/${level2.slug}`}
+                disclosure={level2.disclosure}
                 featured
               />
             </Reveal>
@@ -121,14 +126,9 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                 DB Studio connects brands with:
               </p>
             </Reveal>
-
             <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {talentConnections.map((item, index) => (
-                <Reveal
-                  key={item}
-                  direction={index % 2 === 0 ? "left" : "right"}
-                  delay={index * 80}
-                >
+                <Reveal key={item} direction={index % 2 === 0 ? "left" : "right"} delay={index * 80}>
                   <div className="talent-card talent-card--mirror rounded-lg border-2 border-burgundy bg-burgundy px-4 py-6 text-center">
                     <h3 className="talent-card__title text-sm font-semibold uppercase tracking-wide text-white">
                       {item}
@@ -137,18 +137,10 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
                 </Reveal>
               ))}
             </div>
-
             <Reveal direction="up" delay={120}>
-              <p className="mt-8 max-w-2xl text-text-secondary">
-                All connections are aligned with positioning goals not random
-                exposure.
-              </p>
-              <p className="mt-2 font-medium text-text-primary">
-                We create structured collaboration opportunities.
-              </p>
               <div className="mt-8">
-                <Button href="/services" variant="primary" interactive>
-                  Apply for Brand Management
+                <Button href="/services#brand-foundation" variant="primary" interactive>
+                  View Brand Services — from $2,000
                 </Button>
               </div>
             </Reveal>

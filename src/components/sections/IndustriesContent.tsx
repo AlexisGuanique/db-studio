@@ -26,7 +26,7 @@ export function IndustriesContent() {
                 </div>
                 <div className="mt-8">
                   <Button href="/booking" variant="primary" interactive>
-                    Book a Strategy Call
+                    Book a Strategic Call
                   </Button>
                 </div>
               </div>
@@ -67,7 +67,7 @@ export function IndustriesContent() {
                     <p className="industries-card__text">{industry.description}</p>
                     <div className="mt-6">
                       <Button href="/booking" variant="primary" interactive>
-                        Book a Strategy Call
+                        Book a Strategic Call
                       </Button>
                     </div>
                   </div>

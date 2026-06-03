@@ -27,7 +27,7 @@ export function WhoWeAre() {
             </div>
             <div className="mt-8">
               <Button href="/booking" interactive>
-                Book a strategy call
+                Book a strategic call
               </Button>
             </div>
           </div>

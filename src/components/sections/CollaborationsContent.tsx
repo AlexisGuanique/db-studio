@@ -163,15 +163,15 @@ export function CollaborationsContent() {
         <div className="mx-auto max-w-4xl px-6 text-center md:px-8 lg:px-12">
           <Reveal direction="up">
             <h2 className="collaborations-cta__title">
-              Let&apos;s Build Strategic Collaborations
+              Build Strategic Collaborations With DB Studio
             </h2>
             <p className="collaborations-cta__text mt-4">
               If you&apos;re ready to elevate your brand through powerful
-              collaborations, we&apos;re here to make it happen.
+              collaborations, our team is here to make it happen.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4">
               <Button href="/booking" variant="primary" interactive>
-                Book a Strategy Call
+                Book a Strategic Call
               </Button>
               <Button href="/contact-us" variant="outline" interactive>
                 Contact us

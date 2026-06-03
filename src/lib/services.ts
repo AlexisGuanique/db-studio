@@ -30,57 +30,30 @@ export const servicesNotFor = [
   'Anyone wanting to "try it for a month"',
 ] as const;
 
-export const servicesTimelineSteps = [
-  {
-    step: 1,
-    title: "Brand Activation",
-    price: "One-Time Investment – $2,000",
-    description:
-      "Your brand is streamlined, the message clarified, strategy defined, and a solid foundation for growth is built.",
-    variant: "light" as const,
-  },
-  {
-    step: 2,
-    title: "Brand Management Membership",
-    price: "Up to $1,000 / month",
-    subtitle: "3-Month Program",
-    description: "From Month 2 Onwards Includes:",
-    includes: [
-      "Continuous strategic support",
-      "Message & positioning refinement",
-      "Creative direction",
-      "Growth roadmap execution",
-      "Collaboration & opportunity access",
-    ],
-    note: "This is not a monthly posting subscription. This is strategic brand partnership.",
-    variant: "burgundy" as const,
-  },
-] as const;
-
 export const servicesFaq = [
   {
     question: "What services does DB Studio provide?",
     answer:
-      "DB Studio is a full-service marketing agency specializing in brand strategy, audiovisual production, content creation, and campaign development. We help businesses strengthen their market presence through strategic planning and high-quality visual execution.",
+      "DB Studio Media is a full-service brand development and production agency offering six structured service levels — from studio memberships ($249.99/mo) to enterprise partnerships ($5,000/mo).",
   },
   {
     question: "Who does DB Studio work with?",
     answer:
-      "We work with growing brands, established companies, entrepreneurs, and organizations looking to elevate their positioning and increase brand visibility. Our clients value strategic marketing, premium production, and long-term brand growth.",
+      "We work with growing brands, established companies, entrepreneurs, and organizations looking to elevate their positioning and increase brand visibility.",
   },
   {
     question: "Do you only provide video production services?",
     answer:
-      "No. While high-end audiovisual production is a core strength of DB Studio, we offer comprehensive marketing solutions including brand strategy, creative direction, content planning, and campaign execution. Our approach integrates strategy with production for measurable impact.",
+      "No. While high-end audiovisual production is a core strength, we offer comprehensive solutions including brand strategy, creative direction, content planning, and campaign execution.",
   },
   {
     question: "Do you work with clients internationally?",
     answer:
-      "Yes. DB Studio has experience working on international projects and large-scale productions, including collaborations during events such as Bogotá Fashion Week. We are equipped to manage campaigns and productions both locally and globally.",
+      "Yes. DB Studio has experience working on international projects and large-scale productions across the United States and Latin America.",
   },
   {
     question: "How can we start working with DB Studio?",
     answer:
-      "The first step is to book a strategy call through our calendar. During this consultation, we analyze your brand's goals, challenges, and opportunities to create a customized marketing and production plan tailored to your business.",
+      "Book a strategic call through our booking page. We review your business goals and recommend the right service level with transparent pricing.",
   },
 ] as const;

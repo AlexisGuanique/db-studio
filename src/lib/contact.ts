@@ -10,7 +10,7 @@ export const contactFormCopy = {
   paragraphs: [
     "At DB Studio Media, we specialize in helping brands grow online through creative digital solutions and strategic media services. From compelling visual content and website design to effective marketing and media management, we deliver results that help your business stand out and connect with your audience.",
     "Whether you're launching a new brand, boosting your online presence, or scaling your digital marketing efforts, our team is here to support your goals with clarity and creativity.",
-    "Let's work together to turn your ideas into impactful results because your success is our priority.",
+    "We work together with our clients to turn ideas into impactful results — your success is our priority.",
   ],
 } as const;
 

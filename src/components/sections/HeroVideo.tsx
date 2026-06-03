@@ -99,11 +99,11 @@ export function HeroVideo() {
             type="button"
             className="hero-video__trigger"
             onClick={openModal}
-            aria-label="Play DB Studio introduction video"
+            aria-label="Play DB Studio Media introduction video"
           >
             <Image
               src={POSTER_SRC}
-              alt="Stop improvising in 2026 — Build with a clear plan. Play DB Studio video."
+              alt="DB Studio Media — Stop improvising. Build with structure. Play agency video."
               width={781}
               height={439}
               className="hero-video__poster"
