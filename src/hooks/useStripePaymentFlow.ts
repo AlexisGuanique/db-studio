@@ -24,6 +24,7 @@ export function useStripePaymentFlow() {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState<StripePaymentModalState>("processing");
   const [reason, setReason] = useState<StripeUnavailableReason | undefined>();
+  const [planSlug, setPlanSlug] = useState("");
   const [planName, setPlanName] = useState("");
   const [amountLabel, setAmountLabel] = useState("");
 
@@ -31,10 +32,12 @@ export function useStripePaymentFlow() {
     setOpen(false);
     setState("processing");
     setReason(undefined);
+    setPlanSlug("");
   }, []);
 
   const initiatePayment = useCallback(
     async ({ slug, planName, amountLabel }: InitiatePaymentParams) => {
+      setPlanSlug(slug);
       setPlanName(planName);
       setAmountLabel(amountLabel);
       setState("processing");
@@ -75,6 +78,7 @@ export function useStripePaymentFlow() {
     open,
     state,
     reason,
+    planSlug,
     planName,
     amountLabel,
     initiatePayment,

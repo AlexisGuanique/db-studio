@@ -9,7 +9,7 @@ import { useStripePaymentFlow } from "@/hooks/useStripePaymentFlow";
 
 export function SubscriptionCheckout({ level }: { level: ServiceLevel }) {
   const [consented, setConsented] = useState(false);
-  const { open, state, reason, planName, amountLabel: modalAmount, initiatePayment, close } =
+  const { open, state, reason, planSlug, planName, amountLabel: modalAmount, initiatePayment, close } =
     useStripePaymentFlow();
 
   const consentText = `By subscribing, I authorize DB Studio Media to charge ${level.price}${level.priceSuffix} on the billing start date and each month thereafter until I cancel. I may cancel with 30 days written notice to ${site.billingEmail}.`;
@@ -81,6 +81,7 @@ export function SubscriptionCheckout({ level }: { level: ServiceLevel }) {
       <StripePaymentModal
         open={open}
         state={state}
+        planSlug={planSlug || level.slug}
         planName={planName}
         amountLabel={modalAmount}
         reason={reason}

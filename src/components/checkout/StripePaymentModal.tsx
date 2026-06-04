@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StripeLogo } from "@/components/checkout/StripeLogo";
-import { site } from "@/lib/site";
+import { SubscriptionRequestForm } from "@/components/checkout/SubscriptionRequestForm";
 
 export type StripePaymentModalState =
   | "processing"
@@ -13,9 +13,12 @@ export type StripeUnavailableReason =
   | "stripe_not_connected"
   | "checkout_not_configured";
 
+type ModalView = "status" | "form" | "success";
+
 interface StripePaymentModalProps {
   open: boolean;
   state: StripePaymentModalState;
+  planSlug: string;
   planName: string;
   amountLabel: string;
   reason?: StripeUnavailableReason;
@@ -86,16 +89,27 @@ function getUnavailableCopy(reason?: StripeUnavailableReason) {
 export function StripePaymentModal({
   open,
   state,
+  planSlug,
   planName,
   amountLabel,
   reason,
   onClose,
 }: StripePaymentModalProps) {
+  const [view, setView] = useState<ModalView>("status");
+  const [referenceId, setReferenceId] = useState("");
+
+  useEffect(() => {
+    if (!open) {
+      setView("status");
+      setReferenceId("");
+    }
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && state === "unavailable") {
+      if (event.key === "Escape" && (state === "unavailable" || view !== "status")) {
         onClose();
       }
     };
@@ -107,12 +121,13 @@ export function StripePaymentModal({
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "";
     };
-  }, [open, onClose, state]);
+  }, [open, onClose, state, view]);
 
   if (!open) return null;
 
   const unavailable = getUnavailableCopy(reason);
-  const mailtoHref = `mailto:${site.billingEmail}?subject=${encodeURIComponent(`Subscribe — ${planName}`)}&body=${encodeURIComponent(`Hi, I would like to subscribe to ${planName} (${amountLabel}).`)}`;
+  const canDismiss =
+    state === "unavailable" || view === "form" || view === "success";
 
   return (
     <div
@@ -123,7 +138,7 @@ export function StripePaymentModal({
         type="button"
         className="absolute inset-0 bg-black/45 backdrop-blur-sm"
         aria-label="Close payment dialog"
-        onClick={state === "unavailable" ? onClose : undefined}
+        onClick={canDismiss ? onClose : undefined}
       />
 
       <div
@@ -131,65 +146,107 @@ export function StripePaymentModal({
         aria-modal="true"
         aria-labelledby="stripe-payment-modal-title"
         aria-describedby="stripe-payment-modal-desc"
-        className="stripe-payment-modal__panel relative w-full max-w-md rounded-2xl border border-burgundy/10 bg-white p-8 shadow-2xl"
+        className="stripe-payment-modal__panel relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-burgundy/10 bg-white p-8 shadow-2xl"
       >
-        <div className="flex flex-col items-center text-center">
-          <StripeLogo className="h-8" />
-
-          <div className="mt-6 flex min-h-[3rem] items-center justify-center">
-            {state === "processing" && <Spinner />}
-            {state === "redirecting" && <SuccessPulse />}
-            {state === "unavailable" && <WarningIcon />}
-          </div>
-
-          <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-[#635BFF]">
-            Powered by Stripe
-          </p>
-
-          <h2
-            id="stripe-payment-modal-title"
-            className="mt-4 text-xl font-semibold text-burgundy"
-          >
-            {state === "processing" && "Starting secure payment"}
-            {state === "redirecting" && "Payment session started"}
-            {state === "unavailable" && unavailable.title}
-          </h2>
-
-          <p
-            id="stripe-payment-modal-desc"
-            className="mt-3 text-sm leading-relaxed text-text-secondary"
-          >
-            {state === "processing" &&
-              `We are preparing your checkout for ${planName} (${amountLabel}). Please wait a moment.`}
-            {state === "redirecting" &&
-              "You will be redirected to Stripe Checkout to complete your subscription on a secure, encrypted page."}
-            {state === "unavailable" && unavailable.body}
-          </p>
-
-          {state === "redirecting" && (
-            <p className="mt-4 text-xs text-text-secondary/80">
-              Redirecting now…
+        {view === "form" ? (
+          <SubscriptionRequestForm
+            planSlug={planSlug}
+            planName={planName}
+            amountLabel={amountLabel}
+            onBack={() => setView("status")}
+            onSuccess={(id) => {
+              setReferenceId(id);
+              setView("success");
+            }}
+          />
+        ) : view === "success" ? (
+          <div className="flex flex-col items-center text-center">
+            <SuccessPulse />
+            <h2
+              id="stripe-payment-modal-title"
+              className="mt-6 text-xl font-semibold text-burgundy"
+            >
+              Request received
+            </h2>
+            <p
+              id="stripe-payment-modal-desc"
+              className="mt-3 text-sm leading-relaxed text-text-secondary"
+            >
+              Thank you for your interest in{" "}
+              <span className="font-medium text-burgundy">{planName}</span>. Our billing team
+              will contact you within 1–2 business days to process your subscription.
             </p>
-          )}
+            {referenceId && (
+              <p className="mt-4 rounded-lg bg-cream px-4 py-2 text-xs text-text-secondary">
+                Reference: <span className="font-semibold text-burgundy">{referenceId}</span>
+              </p>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-6 w-full rounded-[10px] bg-burgundy px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#4a1619]"
+            >
+              Close
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center text-center">
+            <StripeLogo />
 
-          {state === "unavailable" && (
-            <div className="mt-6 flex w-full flex-col gap-3">
-              <a
-                href={mailtoHref}
-                className="w-full rounded-[10px] bg-burgundy px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#4a1619]"
-              >
-                Contact billing to subscribe
-              </a>
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-full rounded-[10px] border-2 border-burgundy/20 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-burgundy transition hover:border-burgundy/40"
-              >
-                Close
-              </button>
+            <div className="mt-6 flex min-h-[3rem] items-center justify-center">
+              {state === "processing" && <Spinner />}
+              {state === "redirecting" && <SuccessPulse />}
+              {state === "unavailable" && <WarningIcon />}
             </div>
-          )}
-        </div>
+
+            <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-[#635BFF]">
+              Powered by Stripe
+            </p>
+
+            <h2
+              id="stripe-payment-modal-title"
+              className="mt-4 text-xl font-semibold text-burgundy"
+            >
+              {state === "processing" && "Starting secure payment"}
+              {state === "redirecting" && "Payment session started"}
+              {state === "unavailable" && unavailable.title}
+            </h2>
+
+            <p
+              id="stripe-payment-modal-desc"
+              className="mt-3 text-sm leading-relaxed text-text-secondary"
+            >
+              {state === "processing" &&
+                `We are preparing your checkout for ${planName} (${amountLabel}). Please wait a moment.`}
+              {state === "redirecting" &&
+                "You will be redirected to Stripe Checkout to complete your subscription on a secure, encrypted page."}
+              {state === "unavailable" && unavailable.body}
+            </p>
+
+            {state === "redirecting" && (
+              <p className="mt-4 text-xs text-text-secondary/80">Redirecting now…</p>
+            )}
+
+            {state === "unavailable" && (
+              <div className="mt-6 flex w-full flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => setView("form")}
+                  className="w-full rounded-[10px] bg-burgundy px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#4a1619]"
+                >
+                  Contact billing to subscribe
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full rounded-[10px] border-2 border-burgundy/20 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-burgundy transition hover:border-burgundy/40"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
