@@ -14,10 +14,10 @@ export function BrandManagement() {
             <SectionTitle light className="font-bold drop-shadow-sm">
               Structured Service Levels
             </SectionTitle>
-            <p className="mt-6 text-lg font-medium leading-relaxed text-white/95 drop-shadow-sm">
-              Comprehensive strategic accompaniment for brands ready to scale with structure.
-            </p>
-            <div className="mt-5 space-y-2 font-medium text-white/90 drop-shadow-sm">
+            <div className="reveal-stagger mt-6 space-y-2 text-lg font-medium leading-relaxed text-white/95 drop-shadow-sm">
+              <p>
+                Comprehensive strategic accompaniment for brands ready to scale with structure.
+              </p>
               <p>This is not social media management.</p>
               <p>This is not isolated content production.</p>
               <p className="brand-mgmt__highlight font-semibold text-cream">

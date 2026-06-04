@@ -71,7 +71,7 @@ export function ContentStudio({ showTalent = true }: { showTalent?: boolean }) {
             <Reveal direction="left">
               <div className="content-studio-intro md:col-span-2 lg:col-span-1 lg:pr-4 xl:pr-6">
                 <SectionTitle>In-House Content Studio</SectionTitle>
-                <div className="mt-6 space-y-4 text-text-secondary">
+                <div className="reveal-stagger mt-6 space-y-4 text-text-secondary">
                   <p>
                     DB Studio operates a professional recording and content production studio
                     for creators, entrepreneurs, and brands seeking structured production.
