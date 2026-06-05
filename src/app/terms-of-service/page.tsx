@@ -35,7 +35,7 @@ export default function TermsOfServicePage() {
       <h2>2. Payment Terms</h2>
       <p>
         Payments are processed via Stripe and/or Square. Subscriptions (Levels 1, 2, 4,
-        5, and 6) are billed monthly on the agreed date. Level 3 requires 50% upon
+        5, 6, and 7) are billed monthly on the agreed date. Level 3 requires 50% upon
         signing and 50% at project start. Failed payments may result in
         service suspension until the account is brought current. DB Studio Media will send
         reminders before each billing cycle.
@@ -45,7 +45,7 @@ export default function TermsOfServicePage() {
       <p>
         Levels 1, 2, and 4: written notice 30 days before the next
         billing date. Level 3: non-refundable deposit upon signing; balance non-refundable
-        after project start. Levels 5 and 6: 30 days notice after the minimum
+        after project start. Levels 5, 6, and 7: 30 days notice after the minimum
         committed period. See our{" "}
         <a href="/refund-policy">Refund & Cancellation Policy</a> for
         full details.

@@ -1,4 +1,4 @@
-export type ServiceLevelId = 1 | 2 | 3 | 4 | 5 | 6;
+export type ServiceLevelId = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export interface ServiceLevel {
   id: ServiceLevelId;
@@ -184,6 +184,34 @@ export const serviceLevels: readonly ServiceLevel[] = [
     checkoutType: "application",
     minCommitment: "12 months",
   },
+  {
+    id: 7,
+    slug: "signature-studio",
+    name: "Signature Studio Partnership",
+    category: "enterprise",
+    price: "$3,000",
+    priceAmount: 3000,
+    priceSuffix: "/month",
+    contract:
+      "6-month minimum · Total commitment: $18,000 · 30-day written cancellation after minimum",
+    idealFor:
+      "Ambitious brands ready to show up with presence — strategic brand leadership and studio production in one curated partnership, without the full Integrated Media scope.",
+    deliverables: [
+      "Ongoing brand strategy and monthly positioning oversight",
+      "1 studio recording day per month (2-hour session)",
+      "Up to 4 social-ready clips per month",
+      "Monthly 60-minute strategy session (video call)",
+      "Monthly content direction and creative oversight",
+      "Growth roadmap execution and accountability",
+      "Collaboration and strategic partnership access",
+    ],
+    note: "Your signature presence, built with intention · No Brand Foundation prerequisite · Application required.",
+    disclosure:
+      "By subscribing, you authorize DB Studio Media to charge $3,000 monthly. 6-month minimum commitment ($18,000 total). Cancel after the minimum period with 30 days written notice.",
+    ctaLabel: "Apply — $3,000/mo",
+    checkoutType: "application",
+    minCommitment: "6 months",
+  },
 ] as const;
 
 export function getServiceLevel(slug: string) {
@@ -193,14 +221,14 @@ export function getServiceLevel(slug: string) {
 export const comparisonFeatures = [
   { label: "Price", key: "price" as const },
   { label: "Contract type", key: "contract" as const },
-  { label: "Studio recording days", levels: [2, 2, 0, 0, 2, 2] },
-  { label: "Social-ready clips/month", levels: [4, 8, 0, 0, 8, 8] },
-  { label: "Brand strategy", levels: [false, true, true, true, true, true] },
-  { label: "Influencer connections", levels: [false, true, false, false, true, true] },
-  { label: "Dedicated brand manager", levels: [false, false, false, false, false, true] },
-  { label: "Media / PR exposure", levels: [false, true, false, false, true, true] },
-  { label: "Requires Brand Foundation", levels: [false, false, false, true, false, false] },
-  { label: "Application required", levels: [false, false, true, true, false, true] },
+  { label: "Studio recording days", levels: [2, 2, 0, 0, 2, 2, 1] },
+  { label: "Social-ready clips/month", levels: [4, 8, 0, 0, 8, 8, 4] },
+  { label: "Brand strategy", levels: [false, true, true, true, true, true, true] },
+  { label: "Influencer connections", levels: [false, true, false, false, true, true, false] },
+  { label: "Dedicated brand manager", levels: [false, false, false, false, false, true, false] },
+  { label: "Media / PR exposure", levels: [false, true, false, false, true, true, false] },
+  { label: "Requires Brand Foundation", levels: [false, false, false, true, false, false, false] },
+  { label: "Application required", levels: [false, false, true, true, false, true, true] },
 ] as const;
 
 export const pricingFaq = [
@@ -208,7 +236,7 @@ export const pricingFaq = [
     question:
       "Do I need to complete Strategic Brand Foundation before Brand Management?",
     answer:
-      "Yes. Level 4 (Brand Management Membership) requires completion of Level 3 (Strategic Brand Foundation — $2,000). Levels 5 and 6 do not require Level 3; onboarding is included.",
+      "Yes. Level 4 (Brand Management Membership) requires completion of Level 3 (Strategic Brand Foundation — $2,000). Levels 5, 6, and 7 do not require Level 3; onboarding is included.",
   },
   {
     question: "Can I combine studio and brand management services?",
@@ -218,7 +246,7 @@ export const pricingFaq = [
   {
     question: "What is the cancellation policy for each level?",
     answer:
-      "Levels 1, 2, and 4: 30-day written notice before the next billing date. Level 3: non-refundable deposit and final payment per contract. Levels 5 and 6: 30-day notice after minimum commitment. See our Refund & Cancellation Policy for full details.",
+      "Levels 1, 2, and 4: 30-day written notice before the next billing date. Level 3: non-refundable deposit and final payment per contract. Levels 5, 6, and 7: 30-day notice after minimum commitment. See our Refund & Cancellation Policy for full details.",
   },
   {
     question: "Is there an enrollment fee on any plan?",
@@ -230,7 +258,7 @@ export const pricingFaq = [
       "Rescheduling requires 48 hours minimum notice. Sessions missed without 48-hour notice do not receive credit or refund.",
   },
   {
-    question: "How does the application process work for Levels 4, 5, and 6?",
+    question: "How does the application process work for Levels 4, 5, 6, and 7?",
     answer:
       "Submit the application form with your business details and goals. Our team reviews fit within 2–3 business days. Approved clients receive a custom contract and billing link.",
   },

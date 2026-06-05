@@ -60,7 +60,7 @@ export function PosTerminal() {
 
   return (
     <div className="pos-page bg-cream px-6 py-12 md:py-16">
-      <div className="pos-terminal mx-auto w-full max-w-xl">
+      <div className="pos-terminal mx-auto w-full max-w-2xl">
         <header className="mb-8 text-center">
           <h1 className="text-2xl font-semibold uppercase tracking-wide text-burgundy">
             Point of Sale
@@ -108,7 +108,7 @@ export function PosTerminal() {
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-burgundy/70">
                 Product catalog
               </p>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {serviceLevels.map((level) => (
                   <button
                     key={level.slug}

@@ -43,7 +43,7 @@ export default function RefundPolicyPage() {
         notice before the next billing date, after the minimum committed period.
       </p>
 
-      <h2>Integrated and Enterprise Levels — Levels 5 and 6</h2>
+      <h2>Integrated, Signature Studio, and Enterprise Levels — Levels 5, 6, and 7</h2>
       <p>
         Cancellation and refund terms are governed by the specific Statement of Work (SOW)
         contract signed with each client.
