@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Work — Case Studies",
 };
 
-export default function TrabajoPage() {
+export default function WorkPage() {
   return (
     <>
       <PageImageHero

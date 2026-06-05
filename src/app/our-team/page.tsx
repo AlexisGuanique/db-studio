@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Our Team",
 };
 
-export default function EquipoPage() {
+export default function OurTeamPage() {
   return (
     <>
       <PageImageHero

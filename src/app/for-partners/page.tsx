@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "For Partners",
 };
 
-export default function ParaAliadosPage() {
+export default function ForPartnersPage() {
   return (
     <>
       <PageImageHero

@@ -3,11 +3,15 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      { source: "/collaborations", destination: "/trabajo", permanent: true },
-      { source: "/partnership", destination: "/para-aliados", permanent: true },
-      { source: "/privacy-policy", destination: "/politica-de-privacidad", permanent: true },
-      { source: "/refund-policy", destination: "/politica-de-reembolso", permanent: true },
-      { source: "/terms-of-service", destination: "/terminos-de-servicio", permanent: true },
+      { source: "/collaborations", destination: "/work", permanent: true },
+      { source: "/partnership", destination: "/for-partners", permanent: true },
+      { source: "/trabajo", destination: "/work", permanent: true },
+      { source: "/equipo", destination: "/our-team", permanent: true },
+      { source: "/para-aliados", destination: "/for-partners", permanent: true },
+      { source: "/politica-de-privacidad", destination: "/privacy-policy", permanent: true },
+      { source: "/politica-de-reembolso", destination: "/refund-policy", permanent: true },
+      { source: "/politica-de-cookies", destination: "/cookie-policy", permanent: true },
+      { source: "/terminos-de-servicio", destination: "/terms-of-service", permanent: true },
     ];
   },
 };

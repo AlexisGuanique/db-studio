@@ -63,15 +63,15 @@ export function SubscriptionCheckout({ level }: { level: ServiceLevel }) {
 
         <p className="mt-4 text-center text-xs text-text-secondary">
           By proceeding you agree to our{" "}
-          <Link href="/terminos-de-servicio" className="text-burgundy underline">
+          <Link href="/terms-of-service" className="text-burgundy underline">
             Terms of Service
           </Link>
           ,{" "}
-          <Link href="/politica-de-reembolso" className="text-burgundy underline">
+          <Link href="/refund-policy" className="text-burgundy underline">
             Refund Policy
           </Link>
           , and{" "}
-          <Link href="/politica-de-privacidad" className="text-burgundy underline">
+          <Link href="/privacy-policy" className="text-burgundy underline">
             Privacy Policy
           </Link>
           .

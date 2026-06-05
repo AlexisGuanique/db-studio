@@ -36,7 +36,7 @@ export function AboutAgencyContent() {
             ))}
           </div>
           <div className="mt-10 text-center">
-            <Button href="/equipo" variant="outline" interactive>
+            <Button href="/our-team" variant="outline" interactive>
               Meet our team
             </Button>
           </div>
@@ -49,7 +49,7 @@ export function AboutAgencyContent() {
             <SectionTitle>The Story Behind the Agency</SectionTitle>
             <p className="mt-6 leading-relaxed text-text-secondary">{agencyMission.founderStory}</p>
             <p className="mt-4 text-sm text-text-secondary">
-              <Link href="/equipo" className="text-burgundy underline">
+              <Link href="/our-team" className="text-burgundy underline">
                 View full team profiles →
               </Link>
             </p>

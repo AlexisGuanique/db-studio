@@ -23,7 +23,7 @@ export const navLinks: readonly NavItem[] = [
     label: "About Us",
     children: [
       { href: "/about-us", label: "Who We Are" },
-      { href: "/equipo", label: "Our Team" },
+      { href: "/our-team", label: "Our Team" },
       { href: "/about-us#mission", label: "Mission" },
     ],
   },
@@ -36,9 +36,9 @@ export const navLinks: readonly NavItem[] = [
       { href: "/services#enterprise", label: "Enterprise" },
     ],
   },
-  { href: "/trabajo", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/industries", label: "Industries" },
-  { href: "/para-aliados", label: "For Partners" },
+  { href: "/for-partners", label: "For Partners" },
   { href: "/contact-us", label: "Contact" },
 ] as const;
 
@@ -47,17 +47,17 @@ export const footerQuickLinks = [
   { href: "/about-us", label: "About Us" },
   { href: "/services", label: "Services" },
   { href: "/memberships", label: "Memberships" },
-  { href: "/trabajo", label: "Work" },
+  { href: "/work", label: "Work" },
   { href: "/industries", label: "Industries" },
-  { href: "/para-aliados", label: "For Partners" },
+  { href: "/for-partners", label: "For Partners" },
   { href: "/contact-us", label: "Contact Us" },
 ] as const;
 
 export const footerLegalLinks = [
-  { href: "/terminos-de-servicio", label: "Terms of Service" },
-  { href: "/politica-de-privacidad", label: "Privacy Policy" },
-  { href: "/politica-de-reembolso", label: "Refund & Cancellation Policy" },
-  { href: "/politica-de-cookies", label: "Cookie Policy" },
+  { href: "/terms-of-service", label: "Terms of Service" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/refund-policy", label: "Refund & Cancellation Policy" },
+  { href: "/cookie-policy", label: "Cookie Policy" },
 ] as const;
 
 export const agencyStats = [

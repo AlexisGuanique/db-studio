@@ -22,7 +22,7 @@ export function ClientResults() {
                 <span className="case-study-card__shine" aria-hidden="true" />
                 <p className="case-study-card__industry">{study.industry}</p>
                 <p className="case-study-card__headline">{study.headline}</p>
-                <Link href="/trabajo" className="case-study-card__link">
+                <Link href="/work" className="case-study-card__link">
                   View case study
                   <span className="case-study-card__arrow" aria-hidden="true">
                     →

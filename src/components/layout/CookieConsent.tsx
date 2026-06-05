@@ -30,7 +30,7 @@ export function CookieConsent() {
         <p className="text-sm leading-relaxed text-text-secondary">
           DB Studio Media uses essential cookies and, with your consent, analytics and
           marketing cookies (Google Analytics, Meta Pixel, Stripe, Square).{" "}
-          <Link href="/politica-de-cookies" className="text-burgundy underline">
+          <Link href="/cookie-policy" className="text-burgundy underline">
             Cookie Policy
           </Link>
         </p>
