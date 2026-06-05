@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import type { Terminal } from "@stripe/terminal-js";
+import { useCallback, useRef, useState } from "react";
 
 export type TerminalStatus =
   | "idle"
@@ -16,96 +15,73 @@ interface UseStripeTerminalReturn {
   status: TerminalStatus;
   errorMessage: string | null;
   lastPaymentAmount: number | null;
+  readerLabel: string | null;
   initializeTerminal: () => Promise<void>;
   collectPayment: (amount: number, description?: string) => Promise<void>;
   disconnectReader: () => void;
 }
 
-const simulated =
-  process.env.NEXT_PUBLIC_STRIPE_TERMINAL_SIMULATED === "true";
+const POLL_INTERVAL_MS = 1500;
+const POLL_TIMEOUT_MS = 120_000;
 
-const locationId =
-  process.env.NEXT_PUBLIC_STRIPE_TERMINAL_LOCATION_ID ?? undefined;
+async function pollPaymentStatus(
+  readerId: string,
+  paymentIntentId: string,
+  signal: AbortSignal,
+): Promise<{ success: boolean; message: string; amount?: number }> {
+  const startedAt = Date.now();
 
-function hasTerminalError(
-  result: unknown,
-): result is { error: { message: string } } {
-  return (
-    typeof result === "object" &&
-    result !== null &&
-    "error" in result &&
-    Boolean((result as { error?: { message?: string } }).error)
-  );
-}
-
-export function useStripeTerminal(): UseStripeTerminalReturn {
-  const [terminal, setTerminal] = useState<Terminal | null>(null);
-  const [status, setStatus] = useState<TerminalStatus>("idle");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [lastPaymentAmount, setLastPaymentAmount] = useState<number | null>(
-    null,
-  );
-
-  const fetchConnectionToken = useCallback(async (): Promise<string> => {
-    const response = await fetch("/api/terminal/connection-token", {
-      method: "POST",
-    });
+  while (!signal.aborted) {
+    const response = await fetch(
+      `/api/terminal/charge/status?reader_id=${encodeURIComponent(readerId)}&payment_intent_id=${encodeURIComponent(paymentIntentId)}`,
+    );
 
     if (!response.ok) {
-      throw new Error("Could not obtain connection token");
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || "Could not check payment status");
     }
 
     const data = await response.json();
-    return data.secret as string;
-  }, []);
+
+    if (data.done) {
+      return {
+        success: Boolean(data.success),
+        message: data.message as string,
+        amount: data.amount as number | undefined,
+      };
+    }
+
+    if (Date.now() - startedAt > POLL_TIMEOUT_MS) {
+      throw new Error("Payment timed out. Check the reader and try again.");
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
+  }
+
+  throw new Error("Payment cancelled");
+}
+
+export function useStripeTerminal(): UseStripeTerminalReturn {
+  const [status, setStatus] = useState<TerminalStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [lastPaymentAmount, setLastPaymentAmount] = useState<number | null>(null);
+  const [readerLabel, setReaderLabel] = useState<string | null>(null);
+  const pollAbortRef = useRef<AbortController | null>(null);
 
   const initializeTerminal = useCallback(async () => {
     try {
       setStatus("connecting");
       setErrorMessage(null);
 
-      const { loadStripeTerminal } = await import("@stripe/terminal-js");
-      const StripeTerminal = await loadStripeTerminal();
+      const response = await fetch("/api/terminal/readers");
 
-      if (!StripeTerminal) {
-        throw new Error("Could not load Stripe Terminal SDK");
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Could not reach the payment reader");
       }
 
-      const terminalInstance = StripeTerminal.create({
-        onFetchConnectionToken: fetchConnectionToken,
-        onUnexpectedReaderDisconnect: () => {
-          setStatus("disconnected");
-          setErrorMessage("Reader disconnected unexpectedly");
-          setTerminal(null);
-        },
-      });
-
-      const discoverResult = await terminalInstance.discoverReaders({
-        simulated,
-        ...(locationId ? { location: locationId } : {}),
-      });
-
-      if (hasTerminalError(discoverResult)) {
-        throw new Error(discoverResult.error.message);
-      }
-
-      const readers = discoverResult.discoveredReaders ?? [];
-
-      if (!readers.length) {
-        throw new Error(
-          simulated
-            ? "No simulated reader found. Check Stripe Terminal configuration."
-            : "No reader found. Ensure the BBPOS WisePOS E is powered on and on the same WiFi network.",
-        );
-      }
-
-      const connectResult = await terminalInstance.connectReader(readers[0]);
-
-      if (hasTerminalError(connectResult)) {
-        throw new Error(connectResult.error.message);
-      }
-
-      setTerminal(terminalInstance);
+      const data = await response.json();
+      setReaderLabel(data.label || "Stripe Reader");
       setStatus("connected");
     } catch (error) {
       setStatus("error");
@@ -113,63 +89,48 @@ export function useStripeTerminal(): UseStripeTerminalReturn {
         error instanceof Error ? error.message : "Failed to connect terminal",
       );
     }
-  }, [fetchConnectionToken]);
+  }, []);
 
   const collectPayment = useCallback(
     async (amount: number, description?: string) => {
-      if (!terminal) {
-        setErrorMessage("Terminal is not connected");
+      if (status !== "connected") {
+        setErrorMessage("Connect the reader first");
         setStatus("error");
         return;
       }
+
+      pollAbortRef.current?.abort();
+      const abortController = new AbortController();
+      pollAbortRef.current = abortController;
 
       try {
         setStatus("processing");
         setErrorMessage(null);
 
-        const intentResponse = await fetch(
-          "/api/terminal/create-payment-intent",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount, description }),
-          },
+        const chargeResponse = await fetch("/api/terminal/charge", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount, description }),
+        });
+
+        if (!chargeResponse.ok) {
+          const data = await chargeResponse.json().catch(() => ({}));
+          throw new Error(data.error || "Could not send payment to reader");
+        }
+
+        const { paymentIntentId, readerId } = await chargeResponse.json();
+
+        const result = await pollPaymentStatus(
+          readerId,
+          paymentIntentId,
+          abortController.signal,
         );
 
-        if (!intentResponse.ok) {
-          throw new Error("Could not create payment intent");
+        if (!result.success) {
+          throw new Error(result.message);
         }
 
-        const { client_secret, payment_intent_id } = await intentResponse.json();
-
-        const collectResult = await terminal.collectPaymentMethod(client_secret);
-
-        if (hasTerminalError(collectResult)) {
-          throw new Error(collectResult.error.message);
-        }
-
-        const processResult = await terminal.processPayment(
-          collectResult.paymentIntent,
-        );
-
-        if (hasTerminalError(processResult)) {
-          throw new Error(processResult.error.message);
-        }
-
-        const captureResponse = await fetch(
-          "/api/terminal/capture-payment-intent",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ payment_intent_id }),
-          },
-        );
-
-        if (!captureResponse.ok) {
-          throw new Error("Could not confirm payment capture");
-        }
-
-        setLastPaymentAmount(amount);
+        setLastPaymentAmount(result.amount ?? amount);
         setStatus("success");
 
         window.setTimeout(() => {
@@ -183,26 +144,25 @@ export function useStripeTerminal(): UseStripeTerminalReturn {
         );
 
         window.setTimeout(() => {
-          setStatus(terminal ? "connected" : "disconnected");
+          setStatus("connected");
           setErrorMessage(null);
-        }, 4000);
+        }, 5000);
       }
     },
-    [terminal],
+    [status],
   );
 
   const disconnectReader = useCallback(() => {
-    if (terminal) {
-      terminal.disconnectReader();
-      setTerminal(null);
-      setStatus("disconnected");
-    }
-  }, [terminal]);
+    pollAbortRef.current?.abort();
+    setReaderLabel(null);
+    setStatus("disconnected");
+  }, []);
 
   return {
     status,
     errorMessage,
     lastPaymentAmount,
+    readerLabel,
     initializeTerminal,
     collectPayment,
     disconnectReader,

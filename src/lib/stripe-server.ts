@@ -20,9 +20,5 @@ export function getStripe(): Stripe {
 }
 
 export function getTerminalLocationId(): string | undefined {
-  return process.env.STRIPE_TERMINAL_LOCATION_ID;
-}
-
-export function isTerminalSimulated(): boolean {
-  return process.env.NEXT_PUBLIC_STRIPE_TERMINAL_SIMULATED === "true";
+  return process.env.STRIPE_TERMINAL_LOCATION_ID?.trim();
 }

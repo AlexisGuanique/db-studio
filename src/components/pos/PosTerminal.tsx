@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useStripeTerminal } from "@/hooks/useStripeTerminal";
+import { serviceLevels } from "@/lib/serviceLevels";
 
 const statusConfig = {
   idle: { color: "bg-gray-400", label: "Terminal not started" },
-  connecting: { color: "bg-amber-400 animate-pulse", label: "Searching for reader..." },
-  connected: { color: "bg-emerald-500", label: "Reader connected" },
+  connecting: { color: "bg-amber-400 animate-pulse", label: "Connecting to reader via Stripe..." },
+  connected: { color: "bg-emerald-500", label: "Reader ready — select a product to charge" },
   disconnected: { color: "bg-gray-400", label: "Reader disconnected" },
   processing: {
     color: "bg-amber-500 animate-pulse",
@@ -21,6 +22,7 @@ export function PosTerminal() {
     status,
     errorMessage,
     lastPaymentAmount,
+    readerLabel,
     initializeTerminal,
     collectPayment,
     disconnectReader,
@@ -32,6 +34,12 @@ export function PosTerminal() {
 
   const numericAmount = parseFloat(amount);
   const isValidAmount = !Number.isNaN(numericAmount) && numericAmount >= 0.5;
+
+  const selectProduct = (price: number, name: string) => {
+    setAmount(price.toFixed(2));
+    setDescription(name);
+    setValidationError(null);
+  };
 
   const handleCollectPayment = async () => {
     if (!isValidAmount) {
@@ -52,7 +60,7 @@ export function PosTerminal() {
 
   return (
     <div className="pos-page bg-cream px-6 py-12 md:py-16">
-      <div className="pos-terminal mx-auto w-full max-w-md">
+      <div className="pos-terminal mx-auto w-full max-w-xl">
         <header className="mb-8 text-center">
           <h1 className="text-2xl font-semibold uppercase tracking-wide text-burgundy">
             Point of Sale
@@ -60,9 +68,9 @@ export function PosTerminal() {
           <p className="mt-2 text-sm text-text-secondary">
             DB Studio Media — Orlando, FL
           </p>
-          {process.env.NEXT_PUBLIC_STRIPE_TERMINAL_SIMULATED === "true" && (
-            <p className="mt-2 rounded-lg bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-800">
-              Simulated reader mode — for testing only
+          {readerLabel && status === "connected" && (
+            <p className="mt-2 text-xs font-medium text-emerald-800">
+              Reader: {readerLabel}
             </p>
           )}
         </header>
@@ -90,12 +98,39 @@ export function PosTerminal() {
             onClick={initializeTerminal}
             className="w-full rounded-[10px] bg-burgundy px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-[#4a1619]"
           >
-            Connect reader
+            Connect to reader
           </button>
         )}
 
         {status === "connected" && (
           <div className="space-y-5">
+            <div>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-burgundy/70">
+                Product catalog
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {serviceLevels.map((level) => (
+                  <button
+                    key={level.slug}
+                    type="button"
+                    onClick={() => selectProduct(level.priceAmount, level.name)}
+                    className="rounded-xl border-2 border-burgundy/15 bg-white px-4 py-3 text-left transition hover:border-burgundy/40 hover:bg-cream"
+                  >
+                    <p className="text-xs font-semibold uppercase text-burgundy/70">
+                      Level {level.id}
+                    </p>
+                    <p className="mt-0.5 text-sm font-medium text-text-primary">
+                      {level.name}
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-burgundy">
+                      {level.price}
+                      {level.priceSuffix}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div>
               <label htmlFor="pos-amount" className="mb-2 block text-sm font-medium">
                 Amount (USD)
@@ -119,7 +154,7 @@ export function PosTerminal() {
 
             <div>
               <label htmlFor="pos-description" className="mb-2 block text-sm font-medium">
-                Description (optional)
+                Description
               </label>
               <input
                 id="pos-description"
@@ -178,7 +213,7 @@ export function PosTerminal() {
               ${lastPaymentAmount.toFixed(2)} USD
             </p>
             <p className="mt-3 text-sm text-emerald-700">
-              Returning to checkout panel...
+              Ready for next payment...
             </p>
           </div>
         )}
