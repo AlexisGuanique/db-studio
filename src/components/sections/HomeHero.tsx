@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { AnimatedStats } from "@/components/sections/AnimatedStats";
 import { AutumnLeavesBackground } from "@/components/sections/AutumnLeavesBackground";
-import { ClientLogos } from "@/components/sections/ClientLogos";
 import { ClientResults } from "@/components/sections/ClientResults";
 import { Button } from "@/components/ui/Button";
 import { HeroVideo } from "@/components/sections/HeroVideo";
@@ -83,8 +82,6 @@ export function HomeHero() {
       </section>
 
       <AnimatedStats />
-
-      <ClientLogos />
 
       <ClientResults />
 

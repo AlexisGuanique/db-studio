@@ -34,7 +34,7 @@ export const servicesFaq = [
   {
     question: "What services does DB Studio provide?",
     answer:
-      "DB Studio Media is a full-service brand development and production agency offering six structured service levels — from studio memberships ($249.99/mo) to enterprise partnerships ($5,000/mo).",
+      "DB Studio Media is a full-service brand development and production agency offering seven published service tiers — from studio memberships ($249.99/mo) to enterprise partnerships ($5,000/mo).",
   },
   {
     question: "Who does DB Studio work with?",

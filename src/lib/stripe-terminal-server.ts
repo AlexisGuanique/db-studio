@@ -61,6 +61,7 @@ export async function startReaderPayment(
     amount: Math.round(amount * 100),
     currency: "usd",
     description: description || "In-person payment — DB Studio Media",
+    statement_descriptor: "DB STUDIO MEDIA",
     payment_method_types: ["card_present"],
     capture_method: "manual",
   });

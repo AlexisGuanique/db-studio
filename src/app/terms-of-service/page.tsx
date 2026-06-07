@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
 
       <h2>1. Description of Services</h2>
       <p>
-        {site.legalName} (&quot;DB Studio Media&quot;) offers six levels of brand
+        {site.legalName} (&quot;DB Studio Media&quot;) offers seven levels of brand
         development and audiovisual production services:
       </p>
       <ul>

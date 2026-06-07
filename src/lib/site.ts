@@ -5,7 +5,7 @@ export const site = {
   email: "info@dbstudiomedia.com",
   billingEmail: "billing@dbstudiomedia.com",
   privacyEmail: "privacy@dbstudiomedia.com",
-  phone: "+1 (689) 219 3665",
+  phone: "+1 (407) 688-7889",
   legalName: "EBL Productions LLC DBA DB Studio Media LLC",
   stateOfIncorporation: "Florida, United States",
   address: "Orlando, Florida — United States",
@@ -61,42 +61,9 @@ export const footerLegalLinks = [
 ] as const;
 
 export const agencyStats = [
-  { target: 50, suffix: "+", label: "brands developed" },
-  { target: 8, suffix: "+", label: "industries served" },
-  { target: 5, suffix: "+", label: "years in production" },
-] as const;
-
-export const clientLogos = [
-  {
-    name: "L'Oréal",
-    logo: "/images/collaborations/loreal.png",
-    width: 270,
-    height: 116,
-  },
-  {
-    name: "Garnier",
-    logo: "/images/collaborations/garnier.png",
-    width: 265,
-    height: 107,
-  },
-  {
-    name: "MIU MIU",
-    logo: "/images/collaborations/miu-miu.png",
-    width: 257,
-    height: 127,
-  },
-  {
-    name: "Amazon",
-    logo: "/images/collaborations/amazon.png",
-    width: 246,
-    height: 112,
-  },
-  {
-    name: "EVTV Miami",
-    logo: "/images/partnership/evtv-logo.png",
-    width: 900,
-    height: 489,
-  },
+  { target: 7, suffix: "", label: "published service tiers" },
+  { target: 6, suffix: "", label: "industries served" },
+  { target: 3, suffix: "", label: "strategic service areas" },
 ] as const;
 
 export const studioApproach = [

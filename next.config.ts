@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
       { source: "/para-aliados", destination: "/for-partners", permanent: true },
       { source: "/politica-de-privacidad", destination: "/privacy-policy", permanent: true },
       { source: "/politica-de-reembolso", destination: "/refund-policy", permanent: true },
+      { source: "/refund", destination: "/refund-policy", permanent: true },
+      { source: "/cancellation", destination: "/refund-policy", permanent: true },
       { source: "/politica-de-cookies", destination: "/cookie-policy", permanent: true },
       { source: "/terminos-de-servicio", destination: "/terms-of-service", permanent: true },
     ];
