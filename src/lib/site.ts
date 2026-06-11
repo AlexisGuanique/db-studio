@@ -5,13 +5,14 @@ export const site = {
   email: "info@dbstudiomedia.com",
   billingEmail: "billing@dbstudiomedia.com",
   privacyEmail: "privacy@dbstudiomedia.com",
-  phone: "+1 (407) 688-7889",
+  phone: "+1 (407) 668 7889",
   legalName: "EBL Productions LLC DBA DB Studio Media LLC",
   stateOfIncorporation: "Florida, United States",
   address: "Orlando, Florida — United States",
   hours: "24 X 7, Send us a message",
   calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
 } as const;
+
 
 export type NavItem =
   | { href: string; label: string }
